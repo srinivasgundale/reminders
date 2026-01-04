@@ -23,8 +23,9 @@ model Reminder {
   remindBeforeValue Int     @default(0) 
   remindBeforeUnit  String  @default("days")
 
-  status     String   // 'pending' | 'completed' | 'missed'
-  isPinned   Boolean  @default(false) // New: Productivity Booster
+  status       String   // 'pending' | 'completed' | 'missed'
+  isPinned     Boolean  @default(false) // Productivity Booster
+  displayOrder Int      @default(0)     // Manual sort order
   
   linkedLogId      String? 
   recurrenceRuleId String?
