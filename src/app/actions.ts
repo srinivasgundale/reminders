@@ -83,3 +83,8 @@ export async function cloneReminderAction(id: string) {
     await service.cloneReminder(id);
     return service.getDashboardData();
 }
+
+export async function reorderRemindersAction(ids: string[]) {
+    await service.reorderReminders(ids);
+    return service.getDashboardData();
+}

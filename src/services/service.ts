@@ -131,4 +131,8 @@ export class AppService {
             await this.reminderRepo.save(clone);
         }
     }
+
+    async reorderReminders(ids: string[]) {
+        await this.reminderRepo.reorder(ids);
+    }
 }

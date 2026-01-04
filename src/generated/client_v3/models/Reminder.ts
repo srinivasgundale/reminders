@@ -28,10 +28,12 @@ export type AggregateReminder = {
 
 export type ReminderAvgAggregateOutputType = {
   remindBeforeValue: number | null
+  displayOrder: number | null
 }
 
 export type ReminderSumAggregateOutputType = {
   remindBeforeValue: number | null
+  displayOrder: number | null
 }
 
 export type ReminderMinAggregateOutputType = {
@@ -45,6 +47,7 @@ export type ReminderMinAggregateOutputType = {
   remindBeforeUnit: string | null
   status: string | null
   isPinned: boolean | null
+  displayOrder: number | null
   linkedLogId: string | null
   recurrenceRuleId: string | null
 }
@@ -60,6 +63,7 @@ export type ReminderMaxAggregateOutputType = {
   remindBeforeUnit: string | null
   status: string | null
   isPinned: boolean | null
+  displayOrder: number | null
   linkedLogId: string | null
   recurrenceRuleId: string | null
 }
@@ -75,6 +79,7 @@ export type ReminderCountAggregateOutputType = {
   remindBeforeUnit: number
   status: number
   isPinned: number
+  displayOrder: number
   linkedLogId: number
   recurrenceRuleId: number
   _all: number
@@ -83,10 +88,12 @@ export type ReminderCountAggregateOutputType = {
 
 export type ReminderAvgAggregateInputType = {
   remindBeforeValue?: true
+  displayOrder?: true
 }
 
 export type ReminderSumAggregateInputType = {
   remindBeforeValue?: true
+  displayOrder?: true
 }
 
 export type ReminderMinAggregateInputType = {
@@ -100,6 +107,7 @@ export type ReminderMinAggregateInputType = {
   remindBeforeUnit?: true
   status?: true
   isPinned?: true
+  displayOrder?: true
   linkedLogId?: true
   recurrenceRuleId?: true
 }
@@ -115,6 +123,7 @@ export type ReminderMaxAggregateInputType = {
   remindBeforeUnit?: true
   status?: true
   isPinned?: true
+  displayOrder?: true
   linkedLogId?: true
   recurrenceRuleId?: true
 }
@@ -130,6 +139,7 @@ export type ReminderCountAggregateInputType = {
   remindBeforeUnit?: true
   status?: true
   isPinned?: true
+  displayOrder?: true
   linkedLogId?: true
   recurrenceRuleId?: true
   _all?: true
@@ -232,6 +242,7 @@ export type ReminderGroupByOutputType = {
   remindBeforeUnit: string
   status: string
   isPinned: boolean
+  displayOrder: number
   linkedLogId: string | null
   recurrenceRuleId: string | null
   _count: ReminderCountAggregateOutputType | null
@@ -270,6 +281,7 @@ export type ReminderWhereInput = {
   remindBeforeUnit?: Prisma.StringFilter<"Reminder"> | string
   status?: Prisma.StringFilter<"Reminder"> | string
   isPinned?: Prisma.BoolFilter<"Reminder"> | boolean
+  displayOrder?: Prisma.IntFilter<"Reminder"> | number
   linkedLogId?: Prisma.StringNullableFilter<"Reminder"> | string | null
   recurrenceRuleId?: Prisma.StringNullableFilter<"Reminder"> | string | null
 }
@@ -285,6 +297,7 @@ export type ReminderOrderByWithRelationInput = {
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrderInput | Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrderInput | Prisma.SortOrder
 }
@@ -303,6 +316,7 @@ export type ReminderWhereUniqueInput = Prisma.AtLeast<{
   remindBeforeUnit?: Prisma.StringFilter<"Reminder"> | string
   status?: Prisma.StringFilter<"Reminder"> | string
   isPinned?: Prisma.BoolFilter<"Reminder"> | boolean
+  displayOrder?: Prisma.IntFilter<"Reminder"> | number
   linkedLogId?: Prisma.StringNullableFilter<"Reminder"> | string | null
   recurrenceRuleId?: Prisma.StringNullableFilter<"Reminder"> | string | null
 }, "id">
@@ -318,6 +332,7 @@ export type ReminderOrderByWithAggregationInput = {
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrderInput | Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ReminderCountOrderByAggregateInput
@@ -341,6 +356,7 @@ export type ReminderScalarWhereWithAggregatesInput = {
   remindBeforeUnit?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
   status?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
   isPinned?: Prisma.BoolWithAggregatesFilter<"Reminder"> | boolean
+  displayOrder?: Prisma.IntWithAggregatesFilter<"Reminder"> | number
   linkedLogId?: Prisma.StringNullableWithAggregatesFilter<"Reminder"> | string | null
   recurrenceRuleId?: Prisma.StringNullableWithAggregatesFilter<"Reminder"> | string | null
 }
@@ -356,6 +372,7 @@ export type ReminderCreateInput = {
   remindBeforeUnit?: string
   status: string
   isPinned?: boolean
+  displayOrder?: number
   linkedLogId?: string | null
   recurrenceRuleId?: string | null
 }
@@ -371,6 +388,7 @@ export type ReminderUncheckedCreateInput = {
   remindBeforeUnit?: string
   status: string
   isPinned?: boolean
+  displayOrder?: number
   linkedLogId?: string | null
   recurrenceRuleId?: string | null
 }
@@ -386,6 +404,7 @@ export type ReminderUpdateInput = {
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -401,6 +420,7 @@ export type ReminderUncheckedUpdateInput = {
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -416,6 +436,7 @@ export type ReminderCreateManyInput = {
   remindBeforeUnit?: string
   status: string
   isPinned?: boolean
+  displayOrder?: number
   linkedLogId?: string | null
   recurrenceRuleId?: string | null
 }
@@ -431,6 +452,7 @@ export type ReminderUpdateManyMutationInput = {
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -446,6 +468,7 @@ export type ReminderUncheckedUpdateManyInput = {
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -461,12 +484,14 @@ export type ReminderCountOrderByAggregateInput = {
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrder
 }
 
 export type ReminderAvgOrderByAggregateInput = {
   remindBeforeValue?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type ReminderMaxOrderByAggregateInput = {
@@ -480,6 +505,7 @@ export type ReminderMaxOrderByAggregateInput = {
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrder
 }
@@ -495,12 +521,14 @@ export type ReminderMinOrderByAggregateInput = {
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
   isPinned?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrder
 }
 
 export type ReminderSumOrderByAggregateInput = {
   remindBeforeValue?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -540,6 +568,7 @@ export type ReminderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   remindBeforeUnit?: boolean
   status?: boolean
   isPinned?: boolean
+  displayOrder?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }, ExtArgs["result"]["reminder"]>
@@ -555,6 +584,7 @@ export type ReminderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   remindBeforeUnit?: boolean
   status?: boolean
   isPinned?: boolean
+  displayOrder?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }, ExtArgs["result"]["reminder"]>
@@ -570,6 +600,7 @@ export type ReminderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   remindBeforeUnit?: boolean
   status?: boolean
   isPinned?: boolean
+  displayOrder?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }, ExtArgs["result"]["reminder"]>
@@ -585,11 +616,12 @@ export type ReminderSelectScalar = {
   remindBeforeUnit?: boolean
   status?: boolean
   isPinned?: boolean
+  displayOrder?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }
 
-export type ReminderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "title" | "category" | "dueAt" | "remindBeforeValue" | "remindBeforeUnit" | "status" | "isPinned" | "linkedLogId" | "recurrenceRuleId", ExtArgs["result"]["reminder"]>
+export type ReminderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "title" | "category" | "dueAt" | "remindBeforeValue" | "remindBeforeUnit" | "status" | "isPinned" | "displayOrder" | "linkedLogId" | "recurrenceRuleId", ExtArgs["result"]["reminder"]>
 
 export type $ReminderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Reminder"
@@ -605,6 +637,7 @@ export type $ReminderPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     remindBeforeUnit: string
     status: string
     isPinned: boolean
+    displayOrder: number
     linkedLogId: string | null
     recurrenceRuleId: string | null
   }, ExtArgs["result"]["reminder"]>
@@ -1040,6 +1073,7 @@ export interface ReminderFieldRefs {
   readonly remindBeforeUnit: Prisma.FieldRef<"Reminder", 'String'>
   readonly status: Prisma.FieldRef<"Reminder", 'String'>
   readonly isPinned: Prisma.FieldRef<"Reminder", 'Boolean'>
+  readonly displayOrder: Prisma.FieldRef<"Reminder", 'Int'>
   readonly linkedLogId: Prisma.FieldRef<"Reminder", 'String'>
   readonly recurrenceRuleId: Prisma.FieldRef<"Reminder", 'String'>
 }

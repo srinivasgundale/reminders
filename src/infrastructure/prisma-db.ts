@@ -75,6 +75,7 @@ export const prismaReminderRepository: ReminderRepository = {
                 remindBeforeUnit: reminder.remindBeforeUnit,
                 status: reminder.status,
                 isPinned: reminder.isPinned,
+                displayOrder: reminder.displayOrder,
                 linkedLogId: reminder.linkedLogId,
                 recurrenceRuleId: reminder.recurrenceRuleId,
                 updatedAt: new Date()
@@ -90,6 +91,7 @@ export const prismaReminderRepository: ReminderRepository = {
                 remindBeforeUnit: reminder.remindBeforeUnit,
                 status: reminder.status,
                 isPinned: reminder.isPinned,
+                displayOrder: reminder.displayOrder,
                 linkedLogId: reminder.linkedLogId,
                 recurrenceRuleId: reminder.recurrenceRuleId
             }
@@ -107,6 +109,7 @@ export const prismaReminderRepository: ReminderRepository = {
                 remindBeforeUnit: reminder.remindBeforeUnit,
                 status: reminder.status,
                 isPinned: reminder.isPinned,
+                displayOrder: reminder.displayOrder,
                 updatedAt: new Date()
             }
         });
@@ -125,7 +128,11 @@ export const prismaReminderRepository: ReminderRepository = {
     async getByStatus(status: string) {
         const reminders = await prisma.reminder.findMany({
             where: { status },
-            orderBy: { dueAt: 'asc' }
+            orderBy: [
+                { isPinned: 'desc' },
+                { displayOrder: 'asc' },
+                { dueAt: 'asc' }
+            ]
         });
         return reminders.map(mapToReminder);
     },
@@ -142,7 +149,11 @@ export const prismaReminderRepository: ReminderRepository = {
 
     async getAll() {
         const reminders = await prisma.reminder.findMany({
-            orderBy: { dueAt: 'asc' }
+            orderBy: [
+                { isPinned: 'desc' },
+                { displayOrder: 'asc' },
+                { dueAt: 'asc' }
+            ]
         });
         return reminders.map(mapToReminder);
     },
@@ -150,7 +161,11 @@ export const prismaReminderRepository: ReminderRepository = {
     async getPending() {
         const reminders = await prisma.reminder.findMany({
             where: { status: 'pending' },
-            orderBy: { dueAt: 'asc' }
+            orderBy: [
+                { isPinned: 'desc' },
+                { displayOrder: 'asc' },
+                { dueAt: 'asc' }
+            ]
         });
         return reminders.map(mapToReminder);
     },
@@ -163,6 +178,18 @@ export const prismaReminderRepository: ReminderRepository = {
                 updatedAt: new Date()
             }
         });
+    },
+
+    async reorder(ids: string[]) {
+        // Use a transaction for multiple updates
+        await prisma.$transaction(
+            ids.map((id, index) =>
+                prisma.reminder.update({
+                    where: { id },
+                    data: { displayOrder: index }
+                })
+            )
+        );
     }
 };
 
@@ -193,6 +220,7 @@ function mapToReminder(dbRem: any): Reminder {
         remindBeforeUnit: dbRem.remindBeforeUnit,
         status: dbRem.status as ReminderStatus,
         isPinned: dbRem.isPinned,
+        displayOrder: dbRem.displayOrder || 0,
         linkedLogId: dbRem.linkedLogId || undefined,
         recurrenceRuleId: dbRem.recurrenceRuleId || undefined
     };

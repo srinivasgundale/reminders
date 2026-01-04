@@ -10,7 +10,8 @@ import {
     updateReminderStatusAction,
     updateNudgeAction,
     togglePinAction,
-    cloneReminderAction
+    cloneReminderAction,
+    reorderRemindersAction
 } from '@/app/actions';
 import {
     DndContext,
@@ -357,7 +358,7 @@ export default function Dashboard() {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [activeView, setActiveView] = useState<SavedView>('all');
-    const [sortBy, setSortBy] = useState<'dueDate' | 'created' | 'title' | 'category'>('dueDate');
+    const [sortBy, setSortBy] = useState<'dueDate' | 'created' | 'title' | 'category' | 'manual'>('manual');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
     const ITEMS_PER_PAGE = 10;
@@ -500,14 +501,22 @@ export default function Dashboard() {
         setCurrentPage(1);
     }
 
-    function handleDragEnd(event: DragEndEvent) {
+    async function handleDragEnd(event: DragEndEvent) {
         const { active, over } = event;
 
         if (over && active.id !== over.id) {
             setReminders((items) => {
                 const oldIndex = items.findIndex((item) => item.id === active.id);
                 const newIndex = items.findIndex((item) => item.id === over.id);
-                return arrayMove(items, oldIndex, newIndex);
+                const newItems = arrayMove(items, oldIndex, newIndex);
+
+                // Persist to server
+                Promise.resolve().then(async () => {
+                    const sortedIds = newItems.map(r => r.id);
+                    await reorderRemindersAction(sortedIds);
+                });
+
+                return newItems;
             });
         }
     }
@@ -554,6 +563,9 @@ export default function Dashboard() {
                 break;
             case 'category':
                 comparison = a.category.localeCompare(b.category);
+                break;
+            case 'manual':
+                comparison = (a.displayOrder || 0) - (b.displayOrder || 0);
                 break;
         }
 
@@ -792,6 +804,7 @@ export default function Dashboard() {
                         onChange={e => setSortBy(e.target.value as any)}
                         style={{ flex: '1 1 auto', minWidth: '120px' }}
                     >
+                        <option value="manual">Manual Order</option>
                         <option value="dueDate">Due Date</option>
                         <option value="created">Created</option>
                         <option value="title">Title</option>

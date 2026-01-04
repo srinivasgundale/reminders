@@ -58,7 +58,11 @@ export const reminderRepository: ReminderRepository = {
     },
     async getByStatus(status: string) {
         return InMemoryStorage.instance.reminders.filter(r => r.status === status)
-            .sort((a, b) => a.dueAt.getTime() - b.dueAt.getTime());
+            .sort((a, b) => {
+                if (a.isPinned !== b.isPinned) return b.isPinned ? 1 : -1;
+                if (a.displayOrder !== b.displayOrder) return a.displayOrder - b.displayOrder;
+                return a.dueAt.getTime() - b.dueAt.getTime();
+            });
     },
     async updateStatus(id: string, status: any) {
         const reminder = InMemoryStorage.instance.reminders.find(r => r.id === id);
@@ -68,12 +72,20 @@ export const reminderRepository: ReminderRepository = {
         }
     },
     async getAll() {
-        return [...InMemoryStorage.instance.reminders].sort((a, b) => a.dueAt.getTime() - b.dueAt.getTime());
+        return [...InMemoryStorage.instance.reminders].sort((a, b) => {
+            if (a.isPinned !== b.isPinned) return b.isPinned ? 1 : -1;
+            if (a.displayOrder !== b.displayOrder) return a.displayOrder - b.displayOrder;
+            return a.dueAt.getTime() - b.dueAt.getTime();
+        });
     },
     async getPending() {
         return InMemoryStorage.instance.reminders
             .filter(r => r.status === 'pending')
-            .sort((a, b) => a.dueAt.getTime() - b.dueAt.getTime());
+            .sort((a, b) => {
+                if (a.isPinned !== b.isPinned) return b.isPinned ? 1 : -1;
+                if (a.displayOrder !== b.displayOrder) return a.displayOrder - b.displayOrder;
+                return a.dueAt.getTime() - b.dueAt.getTime();
+            });
     },
     async markComplete(id: string) {
         const reminder = InMemoryStorage.instance.reminders.find(r => r.id === id);
@@ -81,5 +93,14 @@ export const reminderRepository: ReminderRepository = {
             reminder.status = 'completed';
             reminder.updatedAt = new Date();
         }
+    },
+    async reorder(ids: string[]) {
+        ids.forEach((id, index) => {
+            const reminder = InMemoryStorage.instance.reminders.find(r => r.id === id);
+            if (reminder) {
+                reminder.displayOrder = index;
+                reminder.updatedAt = new Date();
+            }
+        });
     }
 };

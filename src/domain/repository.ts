@@ -20,4 +20,5 @@ export interface ReminderRepository {
     updateStatus(id: string, status: string): Promise<void>;
     markComplete(id: string): Promise<void>;
     getAll(): Promise<Reminder[]>;
+    reorder(ids: string[]): Promise<void>;
 }
