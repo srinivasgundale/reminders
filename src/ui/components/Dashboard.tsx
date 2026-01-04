@@ -505,19 +505,27 @@ export default function Dashboard() {
         const { active, over } = event;
 
         if (over && active.id !== over.id) {
-            setReminders((items) => {
-                const oldIndex = items.findIndex((item) => item.id === active.id);
-                const newIndex = items.findIndex((item) => item.id === over.id);
-                const newItems = arrayMove(items, oldIndex, newIndex);
+            const oldIndex = reminders.findIndex((item) => item.id === active.id);
+            const newIndex = reminders.findIndex((item) => item.id === over.id);
+
+            if (oldIndex !== -1 && newIndex !== -1) {
+                const newItems = arrayMove(reminders, oldIndex, newIndex);
+
+                // Update local state immediately for snappy UI
+                setReminders(newItems);
 
                 // Persist to server
-                Promise.resolve().then(async () => {
-                    const sortedIds = newItems.map(r => r.id);
-                    await reorderRemindersAction(sortedIds);
-                });
-
-                return newItems;
-            });
+                try {
+                    const data = await reorderRemindersAction(newItems.map(r => r.id));
+                    if (data && data.reminders) {
+                        setReminders(data.reminders);
+                    }
+                } catch (error) {
+                    console.error("Failed to persist order:", error);
+                    // On error, we could refresh from server to revert
+                    loadData();
+                }
+            }
         }
     }
 
@@ -583,8 +591,11 @@ export default function Dashboard() {
         .filter(matchesSearch)
         .filter(matchesView)
         .sort((a, b) => {
-            if (a.isPinned && !b.isPinned) return -1;
-            if (!a.isPinned && b.isPinned) return 1;
+            // When sorting manually, ignore pinning as primary sort
+            if (sortBy !== 'manual') {
+                if (a.isPinned && !b.isPinned) return -1;
+                if (!a.isPinned && b.isPinned) return 1;
+            }
             return sortReminders(a, b);
         });
 

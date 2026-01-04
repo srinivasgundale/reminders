@@ -129,8 +129,8 @@ export const prismaReminderRepository: ReminderRepository = {
         const reminders = await prisma.reminder.findMany({
             where: { status },
             orderBy: [
-                { isPinned: 'desc' },
                 { displayOrder: 'asc' },
+                { isPinned: 'desc' },
                 { dueAt: 'asc' }
             ]
         });
@@ -150,8 +150,8 @@ export const prismaReminderRepository: ReminderRepository = {
     async getAll() {
         const reminders = await prisma.reminder.findMany({
             orderBy: [
-                { isPinned: 'desc' },
                 { displayOrder: 'asc' },
+                { isPinned: 'desc' },
                 { dueAt: 'asc' }
             ]
         });
@@ -162,8 +162,8 @@ export const prismaReminderRepository: ReminderRepository = {
         const reminders = await prisma.reminder.findMany({
             where: { status: 'pending' },
             orderBy: [
-                { isPinned: 'desc' },
                 { displayOrder: 'asc' },
+                { isPinned: 'desc' },
                 { dueAt: 'asc' }
             ]
         });
