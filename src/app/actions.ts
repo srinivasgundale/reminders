@@ -73,3 +73,13 @@ export async function updateReminderStatusAction(id: string, status: string) {
     await service.updateReminderStatus(id, status);
     return service.getDashboardData();
 }
+
+export async function togglePinAction(id: string) {
+    await service.togglePin(id);
+    return service.getDashboardData();
+}
+
+export async function cloneReminderAction(id: string) {
+    await service.cloneReminder(id);
+    return service.getDashboardData();
+}

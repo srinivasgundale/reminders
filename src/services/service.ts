@@ -104,4 +104,31 @@ export class AppService {
     async updateReminderStatus(id: string, status: string) {
         await this.reminderRepo.updateStatus(id, status);
     }
+
+    async togglePin(id: string) {
+        // Efficiency hack: fetch all to find one (repo limitation), then update.
+        // In real app, we need getById.
+        const all = await this.reminderRepo.getAll();
+        const existing = all.find(r => r.id === id);
+        if (existing) {
+            existing.isPinned = !existing.isPinned;
+            await this.reminderRepo.update(existing);
+        }
+    }
+
+    async cloneReminder(id: string) {
+        const all = await this.reminderRepo.getAll();
+        const existing = all.find(r => r.id === id);
+        if (existing) {
+            const clone = createReminder(
+                existing.title + " (Copy)",
+                new Date(existing.dueAt), // Same Time
+                existing.category,
+                existing.remindBeforeValue,
+                existing.remindBeforeUnit
+            );
+            // Copy Pin status? User requirement: "Modify few fields". Usually clones aren't pinned by default but let's leave it unpinned.
+            await this.reminderRepo.save(clone);
+        }
+    }
 }

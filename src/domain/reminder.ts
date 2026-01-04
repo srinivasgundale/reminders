@@ -9,6 +9,7 @@ export interface Reminder extends DomainEntity {
     remindBeforeValue: number;
     remindBeforeUnit: string;
     status: ReminderStatus;
+    isPinned: boolean;
     linkedLogId?: EntityID; // If this reminder was spawned from a specific log
     recurrenceRuleId?: EntityID; // If part of a repeating series
 }
@@ -31,6 +32,7 @@ export function createReminder(
         remindBeforeValue,
         remindBeforeUnit,
         status: 'pending',
+        isPinned: false,
         linkedLogId
     };
 }

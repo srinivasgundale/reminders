@@ -605,6 +605,7 @@ export const ReminderScalarFieldEnum = {
   remindBeforeValue: 'remindBeforeValue',
   remindBeforeUnit: 'remindBeforeUnit',
   status: 'status',
+  isPinned: 'isPinned',
   linkedLogId: 'linkedLogId',
   recurrenceRuleId: 'recurrenceRuleId'
 } as const
@@ -665,6 +666,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

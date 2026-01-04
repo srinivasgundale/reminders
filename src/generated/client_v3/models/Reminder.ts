@@ -44,6 +44,7 @@ export type ReminderMinAggregateOutputType = {
   remindBeforeValue: number | null
   remindBeforeUnit: string | null
   status: string | null
+  isPinned: boolean | null
   linkedLogId: string | null
   recurrenceRuleId: string | null
 }
@@ -58,6 +59,7 @@ export type ReminderMaxAggregateOutputType = {
   remindBeforeValue: number | null
   remindBeforeUnit: string | null
   status: string | null
+  isPinned: boolean | null
   linkedLogId: string | null
   recurrenceRuleId: string | null
 }
@@ -72,6 +74,7 @@ export type ReminderCountAggregateOutputType = {
   remindBeforeValue: number
   remindBeforeUnit: number
   status: number
+  isPinned: number
   linkedLogId: number
   recurrenceRuleId: number
   _all: number
@@ -96,6 +99,7 @@ export type ReminderMinAggregateInputType = {
   remindBeforeValue?: true
   remindBeforeUnit?: true
   status?: true
+  isPinned?: true
   linkedLogId?: true
   recurrenceRuleId?: true
 }
@@ -110,6 +114,7 @@ export type ReminderMaxAggregateInputType = {
   remindBeforeValue?: true
   remindBeforeUnit?: true
   status?: true
+  isPinned?: true
   linkedLogId?: true
   recurrenceRuleId?: true
 }
@@ -124,6 +129,7 @@ export type ReminderCountAggregateInputType = {
   remindBeforeValue?: true
   remindBeforeUnit?: true
   status?: true
+  isPinned?: true
   linkedLogId?: true
   recurrenceRuleId?: true
   _all?: true
@@ -225,6 +231,7 @@ export type ReminderGroupByOutputType = {
   remindBeforeValue: number
   remindBeforeUnit: string
   status: string
+  isPinned: boolean
   linkedLogId: string | null
   recurrenceRuleId: string | null
   _count: ReminderCountAggregateOutputType | null
@@ -262,6 +269,7 @@ export type ReminderWhereInput = {
   remindBeforeValue?: Prisma.IntFilter<"Reminder"> | number
   remindBeforeUnit?: Prisma.StringFilter<"Reminder"> | string
   status?: Prisma.StringFilter<"Reminder"> | string
+  isPinned?: Prisma.BoolFilter<"Reminder"> | boolean
   linkedLogId?: Prisma.StringNullableFilter<"Reminder"> | string | null
   recurrenceRuleId?: Prisma.StringNullableFilter<"Reminder"> | string | null
 }
@@ -276,6 +284,7 @@ export type ReminderOrderByWithRelationInput = {
   remindBeforeValue?: Prisma.SortOrder
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrderInput | Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrderInput | Prisma.SortOrder
 }
@@ -293,6 +302,7 @@ export type ReminderWhereUniqueInput = Prisma.AtLeast<{
   remindBeforeValue?: Prisma.IntFilter<"Reminder"> | number
   remindBeforeUnit?: Prisma.StringFilter<"Reminder"> | string
   status?: Prisma.StringFilter<"Reminder"> | string
+  isPinned?: Prisma.BoolFilter<"Reminder"> | boolean
   linkedLogId?: Prisma.StringNullableFilter<"Reminder"> | string | null
   recurrenceRuleId?: Prisma.StringNullableFilter<"Reminder"> | string | null
 }, "id">
@@ -307,6 +317,7 @@ export type ReminderOrderByWithAggregationInput = {
   remindBeforeValue?: Prisma.SortOrder
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrderInput | Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ReminderCountOrderByAggregateInput
@@ -329,6 +340,7 @@ export type ReminderScalarWhereWithAggregatesInput = {
   remindBeforeValue?: Prisma.IntWithAggregatesFilter<"Reminder"> | number
   remindBeforeUnit?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
   status?: Prisma.StringWithAggregatesFilter<"Reminder"> | string
+  isPinned?: Prisma.BoolWithAggregatesFilter<"Reminder"> | boolean
   linkedLogId?: Prisma.StringNullableWithAggregatesFilter<"Reminder"> | string | null
   recurrenceRuleId?: Prisma.StringNullableWithAggregatesFilter<"Reminder"> | string | null
 }
@@ -343,6 +355,7 @@ export type ReminderCreateInput = {
   remindBeforeValue?: number
   remindBeforeUnit?: string
   status: string
+  isPinned?: boolean
   linkedLogId?: string | null
   recurrenceRuleId?: string | null
 }
@@ -357,6 +370,7 @@ export type ReminderUncheckedCreateInput = {
   remindBeforeValue?: number
   remindBeforeUnit?: string
   status: string
+  isPinned?: boolean
   linkedLogId?: string | null
   recurrenceRuleId?: string | null
 }
@@ -371,6 +385,7 @@ export type ReminderUpdateInput = {
   remindBeforeValue?: Prisma.IntFieldUpdateOperationsInput | number
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -385,6 +400,7 @@ export type ReminderUncheckedUpdateInput = {
   remindBeforeValue?: Prisma.IntFieldUpdateOperationsInput | number
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -399,6 +415,7 @@ export type ReminderCreateManyInput = {
   remindBeforeValue?: number
   remindBeforeUnit?: string
   status: string
+  isPinned?: boolean
   linkedLogId?: string | null
   recurrenceRuleId?: string | null
 }
@@ -413,6 +430,7 @@ export type ReminderUpdateManyMutationInput = {
   remindBeforeValue?: Prisma.IntFieldUpdateOperationsInput | number
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -427,6 +445,7 @@ export type ReminderUncheckedUpdateManyInput = {
   remindBeforeValue?: Prisma.IntFieldUpdateOperationsInput | number
   remindBeforeUnit?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   linkedLogId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurrenceRuleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -441,6 +460,7 @@ export type ReminderCountOrderByAggregateInput = {
   remindBeforeValue?: Prisma.SortOrder
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrder
 }
@@ -459,6 +479,7 @@ export type ReminderMaxOrderByAggregateInput = {
   remindBeforeValue?: Prisma.SortOrder
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrder
 }
@@ -473,6 +494,7 @@ export type ReminderMinOrderByAggregateInput = {
   remindBeforeValue?: Prisma.SortOrder
   remindBeforeUnit?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   linkedLogId?: Prisma.SortOrder
   recurrenceRuleId?: Prisma.SortOrder
 }
@@ -497,6 +519,10 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
@@ -513,6 +539,7 @@ export type ReminderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   remindBeforeValue?: boolean
   remindBeforeUnit?: boolean
   status?: boolean
+  isPinned?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }, ExtArgs["result"]["reminder"]>
@@ -527,6 +554,7 @@ export type ReminderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   remindBeforeValue?: boolean
   remindBeforeUnit?: boolean
   status?: boolean
+  isPinned?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }, ExtArgs["result"]["reminder"]>
@@ -541,6 +569,7 @@ export type ReminderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   remindBeforeValue?: boolean
   remindBeforeUnit?: boolean
   status?: boolean
+  isPinned?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }, ExtArgs["result"]["reminder"]>
@@ -555,11 +584,12 @@ export type ReminderSelectScalar = {
   remindBeforeValue?: boolean
   remindBeforeUnit?: boolean
   status?: boolean
+  isPinned?: boolean
   linkedLogId?: boolean
   recurrenceRuleId?: boolean
 }
 
-export type ReminderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "title" | "category" | "dueAt" | "remindBeforeValue" | "remindBeforeUnit" | "status" | "linkedLogId" | "recurrenceRuleId", ExtArgs["result"]["reminder"]>
+export type ReminderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "title" | "category" | "dueAt" | "remindBeforeValue" | "remindBeforeUnit" | "status" | "isPinned" | "linkedLogId" | "recurrenceRuleId", ExtArgs["result"]["reminder"]>
 
 export type $ReminderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Reminder"
@@ -574,6 +604,7 @@ export type $ReminderPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     remindBeforeValue: number
     remindBeforeUnit: string
     status: string
+    isPinned: boolean
     linkedLogId: string | null
     recurrenceRuleId: string | null
   }, ExtArgs["result"]["reminder"]>
@@ -1008,6 +1039,7 @@ export interface ReminderFieldRefs {
   readonly remindBeforeValue: Prisma.FieldRef<"Reminder", 'Int'>
   readonly remindBeforeUnit: Prisma.FieldRef<"Reminder", 'String'>
   readonly status: Prisma.FieldRef<"Reminder", 'String'>
+  readonly isPinned: Prisma.FieldRef<"Reminder", 'Boolean'>
   readonly linkedLogId: Prisma.FieldRef<"Reminder", 'String'>
   readonly recurrenceRuleId: Prisma.FieldRef<"Reminder", 'String'>
 }

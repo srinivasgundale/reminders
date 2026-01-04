@@ -74,6 +74,7 @@ export const prismaReminderRepository: ReminderRepository = {
                 remindBeforeValue: reminder.remindBeforeValue,
                 remindBeforeUnit: reminder.remindBeforeUnit,
                 status: reminder.status,
+                isPinned: reminder.isPinned,
                 linkedLogId: reminder.linkedLogId,
                 recurrenceRuleId: reminder.recurrenceRuleId,
                 updatedAt: new Date()
@@ -88,6 +89,7 @@ export const prismaReminderRepository: ReminderRepository = {
                 remindBeforeValue: reminder.remindBeforeValue,
                 remindBeforeUnit: reminder.remindBeforeUnit,
                 status: reminder.status,
+                isPinned: reminder.isPinned,
                 linkedLogId: reminder.linkedLogId,
                 recurrenceRuleId: reminder.recurrenceRuleId
             }
@@ -104,6 +106,7 @@ export const prismaReminderRepository: ReminderRepository = {
                 remindBeforeValue: reminder.remindBeforeValue,
                 remindBeforeUnit: reminder.remindBeforeUnit,
                 status: reminder.status,
+                isPinned: reminder.isPinned,
                 updatedAt: new Date()
             }
         });
@@ -189,6 +192,7 @@ function mapToReminder(dbRem: any): Reminder {
         remindBeforeValue: dbRem.remindBeforeValue,
         remindBeforeUnit: dbRem.remindBeforeUnit,
         status: dbRem.status as ReminderStatus,
+        isPinned: dbRem.isPinned,
         linkedLogId: dbRem.linkedLogId || undefined,
         recurrenceRuleId: dbRem.recurrenceRuleId || undefined
     };

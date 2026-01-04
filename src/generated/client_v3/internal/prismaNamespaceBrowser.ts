@@ -76,6 +76,7 @@ export const ReminderScalarFieldEnum = {
   remindBeforeValue: 'remindBeforeValue',
   remindBeforeUnit: 'remindBeforeUnit',
   status: 'status',
+  isPinned: 'isPinned',
   linkedLogId: 'linkedLogId',
   recurrenceRuleId: 'recurrenceRuleId'
 } as const

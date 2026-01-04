@@ -17,20 +17,20 @@ model Reminder {
   updatedAt  DateTime @updatedAt
   
   title      String
-  category   String   @default("general") // Added Category
+  category   String   @default("general") 
   dueAt      DateTime
   
-  // New: Remind Before configuration
-  remindBeforeValue Int     @default(0) // e.g. 1
-  remindBeforeUnit  String  @default("days") // e.g. "days", "hours"
+  remindBeforeValue Int     @default(0) 
+  remindBeforeUnit  String  @default("days")
 
   status     String   // 'pending' | 'completed' | 'missed'
+  isPinned   Boolean  @default(false) // New: Productivity Booster
   
   linkedLogId      String? 
   recurrenceRuleId String?
 }
 
-// Deprecated but kept for now to avoid breaking existing data immediately
+// Deprecated
 model LifeLog {
   id         String   @id @default(uuid())
   createdAt  DateTime @default(now())
