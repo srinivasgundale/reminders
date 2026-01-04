@@ -630,11 +630,11 @@ export default function Dashboard() {
                     <div style={{ position: 'relative', width: '100%' }}>
                         <input
                             type="text"
+                            className="form-control"
                             placeholder="Search reminders..."
                             value={searchQuery}
                             onChange={e => setSearchQuery(e.target.value)}
                             style={{
-                                width: '100%',
                                 paddingLeft: '2.5rem',
                                 fontSize: '1rem'
                             }}
@@ -736,6 +736,7 @@ export default function Dashboard() {
                         Sort:
                     </span>
                     <select
+                        className="form-control"
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value as any)}
                         style={{ flex: '1 1 auto', minWidth: '120px' }}
@@ -991,10 +992,10 @@ export default function Dashboard() {
                                     <input
                                         type="text"
                                         required
+                                        className="form-control"
                                         placeholder="e.g. Renew car insurance"
                                         value={title}
                                         onChange={e => setTitle(e.target.value)}
-                                        style={{ width: '100%' }}
                                         autoFocus
                                     />
                                 </div>
@@ -1031,9 +1032,9 @@ export default function Dashboard() {
                                     <input
                                         type="date"
                                         required
+                                        className="form-control"
                                         value={date}
                                         onChange={e => setDate(e.target.value)}
-                                        style={{ width: '100%' }}
                                     />
                                 </div>
 
@@ -1045,11 +1046,13 @@ export default function Dashboard() {
                                         <input
                                             type="number"
                                             min="0"
+                                            className="form-control"
                                             value={remindValue}
                                             onChange={e => setRemindValue(parseInt(e.target.value) || 0)}
                                             style={{ flex: 1 }}
                                         />
                                         <select
+                                            className="form-control"
                                             value={remindUnit}
                                             onChange={e => setRemindUnit(e.target.value)}
                                             style={{ flex: 1 }}

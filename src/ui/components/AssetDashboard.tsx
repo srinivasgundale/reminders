@@ -286,6 +286,7 @@ export default function AssetDashboard() {
                                 <input
                                     type="text"
                                     required
+                                    className="form-control"
                                     value={formData.title}
                                     onChange={e => setFormData({ ...formData, title: e.target.value })}
                                     placeholder="e.g. Portfolio Domain"
@@ -295,24 +296,29 @@ export default function AssetDashboard() {
                             <div className="form-row">
                                 <div className="form-group">
                                     <label>Type</label>
-                                    <select value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value as AssetType })}>
+                                    <select
+                                        className="form-control"
+                                        value={formData.type}
+                                        onChange={e => setFormData({ ...formData, type: e.target.value as AssetType })}
+                                    >
                                         {ASSET_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                                     </select>
                                 </div>
                                 <div className="form-group">
                                     <label>Category</label>
-                                    <input type="text" value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })} placeholder="Personal" />
+                                    <input type="text" className="form-control" value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })} placeholder="Personal" />
                                 </div>
                             </div>
 
                             <div className="form-group">
                                 <label>Identifier (Domain/Serial/URL)</label>
-                                <input type="text" value={formData.identifier} onChange={e => setFormData({ ...formData, identifier: e.target.value })} placeholder="e.g. example.com" />
+                                <input type="text" className="form-control" value={formData.identifier} onChange={e => setFormData({ ...formData, identifier: e.target.value })} placeholder="e.g. example.com" />
                             </div>
 
                             <div className="form-group">
                                 <label>Account Metadata / Notes</label>
                                 <textarea
+                                    className="form-control"
                                     value={formData.metadata}
                                     onChange={e => setFormData({ ...formData, metadata: e.target.value })}
                                     placeholder="e.g. Linked email, purchase date, recurring cost..."
@@ -322,11 +328,11 @@ export default function AssetDashboard() {
                             <div className="form-row">
                                 <div className="form-group">
                                     <label>Expiry Date</label>
-                                    <input type="date" value={formData.expiresAt} onChange={e => setFormData({ ...formData, expiresAt: e.target.value })} />
+                                    <input type="date" className="form-control" value={formData.expiresAt} onChange={e => setFormData({ ...formData, expiresAt: e.target.value })} />
                                 </div>
                                 <div className="form-group">
                                     <label>Remind Date</label>
-                                    <input type="date" value={formData.remindAt} onChange={e => setFormData({ ...formData, remindAt: e.target.value })} />
+                                    <input type="date" className="form-control" value={formData.remindAt} onChange={e => setFormData({ ...formData, remindAt: e.target.value })} />
                                 </div>
                             </div>
 
