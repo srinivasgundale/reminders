@@ -1,0 +1,42 @@
+// This is your Prisma schema file.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/client_v3"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:d:/react/app1/prisma/dev.db"
+}
+
+// Domain: Reminder (Enhanced)
+model Reminder {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  title      String
+  category   String   @default("general") // Added Category
+  dueAt      DateTime
+  
+  // New: Remind Before configuration
+  remindBeforeValue Int     @default(0) // e.g. 1
+  remindBeforeUnit  String  @default("days") // e.g. "days", "hours"
+
+  status     String   // 'pending' | 'completed' | 'missed'
+  
+  linkedLogId      String? 
+  recurrenceRuleId String?
+}
+
+// Deprecated but kept for now to avoid breaking existing data immediately
+model LifeLog {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  title      String
+  category   String
+  notes      String?
+  occurredAt DateTime
+}
