@@ -31,6 +31,26 @@ model Reminder {
   recurrenceRuleId String?
 }
 
+// Assets (New Feature)
+model DigitalAsset {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  title      String
+  type       String   // 'Domain' | 'Subscription' | 'License' | 'Warranty' | 'Certificate' | 'Other'
+  category   String   @default("Personal")
+  
+  identifier String?  // e.g. domain name, serial number
+  metadata   String?  // e.g. "Email: user@example.com"
+  
+  expiresAt  DateTime? 
+  remindAt   DateTime?
+  
+  status       String   @default("active") // 'active' | 'expired' | 'cancelled'
+  displayOrder Int      @default(0)
+}
+
 // Deprecated
 model LifeLog {
   id         String   @id @default(uuid())

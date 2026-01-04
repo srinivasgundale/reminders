@@ -9,5 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Reminder'
+export type * from './models/DigitalAsset'
 export type * from './models/LifeLog'
 export type * from './commonInputTypes'

@@ -50,6 +50,11 @@ path.join(process.cwd(), "src/generated/client_v3/query_engine-windows.dll.node"
  */
 export type Reminder = Prisma.ReminderModel
 /**
+ * Model DigitalAsset
+ * 
+ */
+export type DigitalAsset = Prisma.DigitalAssetModel
+/**
  * Model LifeLog
  * 
  */

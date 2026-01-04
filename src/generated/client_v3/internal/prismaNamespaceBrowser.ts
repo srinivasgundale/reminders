@@ -50,6 +50,7 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 export const ModelName = {
   Reminder: 'Reminder',
+  DigitalAsset: 'DigitalAsset',
   LifeLog: 'LifeLog'
 } as const
 
@@ -83,6 +84,24 @@ export const ReminderScalarFieldEnum = {
 } as const
 
 export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
+
+
+export const DigitalAssetScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  title: 'title',
+  type: 'type',
+  category: 'category',
+  identifier: 'identifier',
+  metadata: 'metadata',
+  expiresAt: 'expiresAt',
+  remindAt: 'remindAt',
+  status: 'status',
+  displayOrder: 'displayOrder'
+} as const
+
+export type DigitalAssetScalarFieldEnum = (typeof DigitalAssetScalarFieldEnum)[keyof typeof DigitalAssetScalarFieldEnum]
 
 
 export const LifeLogScalarFieldEnum = {

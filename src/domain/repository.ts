@@ -1,5 +1,6 @@
 import { LifeLog } from "./log";
 import { Reminder } from "./reminder";
+import { DigitalAsset } from "./asset";
 
 export interface LogRepository {
     save(log: LifeLog): Promise<void>;
@@ -20,5 +21,14 @@ export interface ReminderRepository {
     updateStatus(id: string, status: string): Promise<void>;
     markComplete(id: string): Promise<void>;
     getAll(): Promise<Reminder[]>;
+    reorder(ids: string[]): Promise<void>;
+}
+
+export interface AssetRepository {
+    save(asset: DigitalAsset): Promise<void>;
+    update(asset: DigitalAsset): Promise<void>;
+    delete(id: string): Promise<void>;
+    deleteMany(ids: string[]): Promise<void>;
+    getAll(): Promise<DigitalAsset[]>;
     reorder(ids: string[]): Promise<void>;
 }

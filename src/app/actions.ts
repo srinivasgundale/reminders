@@ -1,11 +1,12 @@
 'use server'
 
-import { prismaLogRepository, prismaReminderRepository } from "@/infrastructure/prisma-db";
+import { prismaLogRepository, prismaReminderRepository, prismaAssetRepository } from "@/infrastructure/prisma-db";
 import { AppService } from "@/services/service";
 import { LogCategory } from "@/domain/log";
+import { AssetType } from "@/domain/asset";
 
 // Instantiate Service with Prisma Repositories
-const service = new AppService(prismaLogRepository, prismaReminderRepository);
+const service = new AppService(prismaLogRepository, prismaReminderRepository, prismaAssetRepository);
 
 export async function getDashboardData() {
     return service.getDashboardData();
@@ -87,4 +88,63 @@ export async function cloneReminderAction(id: string) {
 export async function reorderRemindersAction(ids: string[]) {
     await service.reorderReminders(ids);
     return service.getDashboardData();
+}
+
+// Asset Actions
+export async function getAssetsAction() {
+    return service.getAllAssets();
+}
+
+export async function submitAssetAction(
+    title: string,
+    type: AssetType,
+    category: string,
+    identifier?: string,
+    metadata?: string,
+    expiresAt?: string,
+    remindAt?: string
+) {
+    await service.createAsset(
+        title,
+        type,
+        category,
+        identifier,
+        metadata,
+        expiresAt ? new Date(expiresAt) : undefined,
+        remindAt ? new Date(remindAt) : undefined
+    );
+    return service.getAllAssets();
+}
+
+export async function updateAssetAction(
+    id: string,
+    title: string,
+    type: AssetType,
+    category: string,
+    identifier?: string,
+    metadata?: string,
+    expiresAt?: string,
+    remindAt?: string
+) {
+    await service.updateAsset(
+        id,
+        title,
+        type,
+        category,
+        identifier,
+        metadata,
+        expiresAt ? new Date(expiresAt) : undefined,
+        remindAt ? new Date(remindAt) : undefined
+    );
+    return service.getAllAssets();
+}
+
+export async function deleteAssetAction(id: string) {
+    await service.deleteAsset(id);
+    return service.getAllAssets();
+}
+
+export async function reorderAssetsAction(ids: string[]) {
+    await service.reorderAssets(ids);
+    return service.getAllAssets();
 }

@@ -1,6 +1,7 @@
 import { LogCategory, LifeLog } from "@/domain/log";
 import { Reminder, ReminderStatus } from "@/domain/reminder";
-import { LogRepository, ReminderRepository } from "@/domain/repository";
+import { DigitalAsset, AssetType } from "@/domain/asset";
+import { LogRepository, ReminderRepository, AssetRepository } from "@/domain/repository";
 import { prisma } from "@/lib/prisma";
 
 export const prismaLogRepository: LogRepository = {
@@ -193,8 +194,91 @@ export const prismaReminderRepository: ReminderRepository = {
     }
 };
 
+export const prismaAssetRepository: AssetRepository = {
+    async save(asset: DigitalAsset) {
+        await prisma.digitalAsset.upsert({
+            where: { id: asset.id },
+            update: {
+                title: asset.title,
+                type: asset.type,
+                category: asset.category,
+                identifier: asset.identifier,
+                metadata: asset.metadata,
+                expiresAt: asset.expiresAt,
+                remindAt: asset.remindAt,
+                status: asset.status,
+                displayOrder: asset.displayOrder,
+                updatedAt: new Date()
+            },
+            create: {
+                id: asset.id,
+                createdAt: asset.createdAt,
+                updatedAt: asset.updatedAt,
+                title: asset.title,
+                type: asset.type,
+                category: asset.category,
+                identifier: asset.identifier,
+                metadata: asset.metadata,
+                expiresAt: asset.expiresAt,
+                remindAt: asset.remindAt,
+                status: asset.status,
+                displayOrder: asset.displayOrder
+            }
+        });
+    },
+
+    async update(asset: DigitalAsset) {
+        await prisma.digitalAsset.update({
+            where: { id: asset.id },
+            data: {
+                title: asset.title,
+                type: asset.type,
+                category: asset.category,
+                identifier: asset.identifier,
+                metadata: asset.metadata,
+                expiresAt: asset.expiresAt,
+                remindAt: asset.remindAt,
+                status: asset.status,
+                displayOrder: asset.displayOrder,
+                updatedAt: new Date()
+            }
+        });
+    },
+
+    async delete(id: string) {
+        await prisma.digitalAsset.delete({ where: { id } });
+    },
+
+    async deleteMany(ids: string[]) {
+        await prisma.digitalAsset.deleteMany({
+            where: { id: { in: ids } }
+        });
+    },
+
+    async getAll() {
+        const assets = await prisma.digitalAsset.findMany({
+            orderBy: [
+                { displayOrder: 'asc' },
+                { expiresAt: 'asc' }
+            ]
+        });
+        return assets.map(mapToAsset);
+    },
+
+    async reorder(ids: string[]) {
+        await prisma.$transaction(
+            ids.map((id, index) =>
+                prisma.digitalAsset.update({
+                    where: { id },
+                    data: { displayOrder: index }
+                })
+            )
+        );
+    }
+};
+
 // Mappers to ensure Domain Purity
-// Use 'any' or explicit generated types if importing from @prisma/client is tricky in pure files, 
+// Use 'any' or explicit generated types if importing from @prisma/client is tricky in pure files,
 // but here we are in infrastructure/ which is allowed to know about DB.
 function mapToLifeLog(dbLog: any): LifeLog {
     return {
@@ -223,5 +307,22 @@ function mapToReminder(dbRem: any): Reminder {
         displayOrder: dbRem.displayOrder || 0,
         linkedLogId: dbRem.linkedLogId || undefined,
         recurrenceRuleId: dbRem.recurrenceRuleId || undefined
+    };
+}
+
+function mapToAsset(dbAsset: any): DigitalAsset {
+    return {
+        id: dbAsset.id,
+        createdAt: dbAsset.createdAt,
+        updatedAt: dbAsset.updatedAt,
+        title: dbAsset.title,
+        type: dbAsset.type as AssetType,
+        category: dbAsset.category,
+        identifier: dbAsset.identifier || undefined,
+        metadata: dbAsset.metadata || undefined,
+        expiresAt: dbAsset.expiresAt || undefined,
+        remindAt: dbAsset.remindAt || undefined,
+        status: dbAsset.status as any,
+        displayOrder: dbAsset.displayOrder || 0
     };
 }

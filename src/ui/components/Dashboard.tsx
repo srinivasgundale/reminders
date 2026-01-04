@@ -351,7 +351,6 @@ function SortableReminderCard({
 export default function Dashboard() {
     const [reminders, setReminders] = useState<Reminder[]>([]);
     const [loading, setLoading] = useState(true);
-    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
     const [activeTab, setActiveTab] = useState<'pending' | 'completed' | 'all'>('pending');
     const [selectedReminders, setSelectedReminders] = useState<string[]>([]);
@@ -387,10 +386,6 @@ export default function Dashboard() {
 
     useEffect(() => {
         loadData();
-        // Load theme from localStorage
-        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' || 'dark';
-        setTheme(savedTheme);
-        document.documentElement.setAttribute('data-theme', savedTheme);
     }, []);
 
     async function loadData() {
@@ -399,12 +394,7 @@ export default function Dashboard() {
         setLoading(false);
     }
 
-    function toggleTheme() {
-        const newTheme = theme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-    }
+
 
     function openCreateModal() {
         setEditingId(null);
@@ -612,72 +602,7 @@ export default function Dashboard() {
 
     return (
         <>
-            {/* Theme Toggle */}
-            <div style={{
-                position: 'fixed',
-                top: '1rem',
-                right: '1rem',
-                zIndex: 1000,
-                background: 'var(--bg-elevated)',
-                borderRadius: 'var(--radius-full)',
-                padding: '0.25rem',
-                display: 'flex',
-                flexDirection: window.innerWidth < 640 ? 'column' : 'row',
-                gap: '0.25rem',
-                boxShadow: 'var(--shadow-md)',
-                border: '1px solid var(--border-color)'
-            }}>
-                <button
-                    onClick={() => theme !== 'light' && toggleTheme()}
-                    style={{
-                        background: theme === 'light' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'transparent',
-                        color: theme === 'light' ? 'white' : 'var(--text-secondary)',
-                        border: 'none',
-                        borderRadius: 'var(--radius-full)',
-                        padding: window.innerWidth < 640 ? '0.5rem' : '0.5rem 1rem',
-                        cursor: 'pointer',
-                        fontSize: '0.8125rem',
-                        fontWeight: 600,
-                        transition: 'all 0.3s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.375rem',
-                        whiteSpace: 'nowrap',
-                        minWidth: window.innerWidth < 640 ? '2.5rem' : 'auto',
-                        minHeight: '2.5rem'
-                    }}
-                    title="Light Mode"
-                >
-                    <span style={{ fontSize: '1rem' }}>☀️</span>
-                    {window.innerWidth >= 640 && <span>Light</span>}
-                </button>
-                <button
-                    onClick={() => theme !== 'dark' && toggleTheme()}
-                    style={{
-                        background: theme === 'dark' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'transparent',
-                        color: theme === 'dark' ? 'white' : 'var(--text-secondary)',
-                        border: 'none',
-                        borderRadius: 'var(--radius-full)',
-                        padding: window.innerWidth < 640 ? '0.5rem' : '0.5rem 1rem',
-                        cursor: 'pointer',
-                        fontSize: '0.8125rem',
-                        fontWeight: 600,
-                        transition: 'all 0.3s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.375rem',
-                        whiteSpace: 'nowrap',
-                        minWidth: window.innerWidth < 640 ? '2.5rem' : 'auto',
-                        minHeight: '2.5rem'
-                    }}
-                    title="Dark Mode"
-                >
-                    <span style={{ fontSize: '1rem' }}>🌙</span>
-                    {window.innerWidth >= 640 && <span>Dark</span>}
-                </button>
-            </div>
+
 
             <div className="container" style={{ padding: '1rem' }}>
                 {/* Header */}

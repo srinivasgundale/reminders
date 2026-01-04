@@ -23,6 +23,11 @@ export * from './enums';
  */
 export type Reminder = Prisma.ReminderModel
 /**
+ * Model DigitalAsset
+ * 
+ */
+export type DigitalAsset = Prisma.DigitalAssetModel
+/**
  * Model LifeLog
  * 
  */

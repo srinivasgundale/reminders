@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "A smart personal assistant for high-value, low-frequency reminders.",
 };
 
+import Navbar from "@/ui/components/Navbar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
+        <Navbar />
         {children}
       </body>
     </html>

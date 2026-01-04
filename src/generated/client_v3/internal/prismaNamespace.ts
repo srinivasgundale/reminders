@@ -391,6 +391,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Reminder: 'Reminder',
+  DigitalAsset: 'DigitalAsset',
   LifeLog: 'LifeLog'
 } as const
 
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "reminder" | "lifeLog"
+    modelProps: "reminder" | "digitalAsset" | "lifeLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -482,6 +483,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ReminderCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ReminderCountAggregateOutputType> | number
+        }
+      }
+    }
+    DigitalAsset: {
+      payload: Prisma.$DigitalAssetPayload<ExtArgs>
+      fields: Prisma.DigitalAssetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DigitalAssetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DigitalAssetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>
+        }
+        findFirst: {
+          args: Prisma.DigitalAssetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DigitalAssetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>
+        }
+        findMany: {
+          args: Prisma.DigitalAssetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>[]
+        }
+        create: {
+          args: Prisma.DigitalAssetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>
+        }
+        createMany: {
+          args: Prisma.DigitalAssetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DigitalAssetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>[]
+        }
+        delete: {
+          args: Prisma.DigitalAssetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>
+        }
+        update: {
+          args: Prisma.DigitalAssetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>
+        }
+        deleteMany: {
+          args: Prisma.DigitalAssetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DigitalAssetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DigitalAssetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>[]
+        }
+        upsert: {
+          args: Prisma.DigitalAssetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DigitalAssetPayload>
+        }
+        aggregate: {
+          args: Prisma.DigitalAssetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDigitalAsset>
+        }
+        groupBy: {
+          args: Prisma.DigitalAssetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DigitalAssetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DigitalAssetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DigitalAssetCountAggregateOutputType> | number
         }
       }
     }
@@ -612,6 +687,24 @@ export const ReminderScalarFieldEnum = {
 } as const
 
 export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
+
+
+export const DigitalAssetScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  title: 'title',
+  type: 'type',
+  category: 'category',
+  identifier: 'identifier',
+  metadata: 'metadata',
+  expiresAt: 'expiresAt',
+  remindAt: 'remindAt',
+  status: 'status',
+  displayOrder: 'displayOrder'
+} as const
+
+export type DigitalAssetScalarFieldEnum = (typeof DigitalAssetScalarFieldEnum)[keyof typeof DigitalAssetScalarFieldEnum]
 
 
 export const LifeLogScalarFieldEnum = {
@@ -771,6 +864,7 @@ export interface PrismaClientOptions {
 }
 export type GlobalOmitConfig = {
   reminder?: Prisma.ReminderOmit
+  digitalAsset?: Prisma.DigitalAssetOmit
   lifeLog?: Prisma.LifeLogOmit
 }
 

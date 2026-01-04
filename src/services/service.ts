@@ -1,12 +1,14 @@
 import { createLifeLog, LogCategory } from "@/domain/log";
 import { createReminder } from "@/domain/reminder";
-import { LogRepository, ReminderRepository } from "@/domain/repository";
+import { LogRepository, ReminderRepository, AssetRepository } from "@/domain/repository";
 import { predictNextNudge } from "@/domain/nudge-logic";
+import { createAsset, DigitalAsset, AssetType } from "@/domain/asset";
 
 export class AppService {
     constructor(
         private logRepo: LogRepository,
-        private reminderRepo: ReminderRepository
+        private reminderRepo: ReminderRepository,
+        private assetRepo: AssetRepository
     ) { }
 
     async logEvent(title: string, category: LogCategory, date: Date) {
@@ -134,5 +136,45 @@ export class AppService {
 
     async reorderReminders(ids: string[]) {
         await this.reminderRepo.reorder(ids);
+    }
+
+    // Asset Methods
+    async createAsset(title: string, type: AssetType, category: string, identifier?: string, metadata?: string, expiresAt?: Date, remindAt?: Date) {
+        const asset = createAsset(title, type, category, identifier, metadata, expiresAt, remindAt);
+        await this.assetRepo.save(asset);
+        return asset;
+    }
+
+    async updateAsset(id: string, title: string, type: AssetType, category: string, identifier?: string, metadata?: string, expiresAt?: Date, remindAt?: Date) {
+        const all = await this.assetRepo.getAll();
+        const existing = all.find(a => a.id === id);
+        if (!existing) throw new Error("Asset not found");
+
+        existing.title = title;
+        existing.type = type;
+        existing.category = category;
+        existing.identifier = identifier;
+        existing.metadata = metadata;
+        existing.expiresAt = expiresAt;
+        existing.remindAt = remindAt;
+        existing.updatedAt = new Date();
+
+        await this.assetRepo.update(existing);
+    }
+
+    async deleteAsset(id: string) {
+        await this.assetRepo.delete(id);
+    }
+
+    async deleteAssets(ids: string[]) {
+        await this.assetRepo.deleteMany(ids);
+    }
+
+    async getAllAssets() {
+        return this.assetRepo.getAll();
+    }
+
+    async reorderAssets(ids: string[]) {
+        await this.assetRepo.reorder(ids);
     }
 }
